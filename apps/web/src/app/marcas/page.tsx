@@ -14,14 +14,14 @@ export default async function MarcasPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 space-y-12">
       {/* Editorial Header */}
       <div className="border-b border-stone-200 pb-8 space-y-3">
-        <div className="flex items-center space-x-2 text-stone-500 text-xs tracking-wideEditorial uppercase">
+        <div className="flex items-center space-x-2 text-stone-500 text-xs tracking-tight uppercase font-bold">
           <Sparkles className="w-4 h-4" />
           <span>Directorio UPB</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-light text-stone-950 tracking-tight">
+        <h1 className="text-4xl sm:text-6xl font-black text-stone-950 uppercase tracking-tight">
           Marcas Participantes
         </h1>
-        <p className="text-sm sm:text-base text-stone-600 max-w-2xl font-sans leading-relaxed">
+        <p className="text-sm sm:text-base text-stone-600 max-w-2xl font-sans leading-relaxed font-normal">
           Conoce los universos conceptuales, universos visuales y propuestas de indumentaria desarrolladas por los estudiantes de Producto Comercial. Cada marca cuenta con su propio apartado y catálogo independiente.
         </p>
       </div>
@@ -37,7 +37,7 @@ export default async function MarcasPage() {
             <Link
               key={brand.id}
               href={`/marcas/${brand.slug}`}
-              className="group flex flex-col bg-white border border-stone-200/90 hover:border-stone-950 transition-all duration-300 shadow-sm hover:shadow-md overflow-hidden"
+              className="group flex flex-col bg-white border border-stone-200 hover:border-stone-950 transition-all duration-300 shadow-sm hover:shadow-md overflow-hidden"
             >
               {/* Cover Image */}
               <div className="relative aspect-[16/10] w-full bg-stone-100 overflow-hidden">
@@ -52,7 +52,7 @@ export default async function MarcasPage() {
 
                 {/* Slug Badge */}
                 <div className="absolute top-4 left-4">
-                  <span className="bg-white/90 backdrop-blur-sm text-[10px] tracking-wideEditorial uppercase font-semibold text-stone-900 px-3 py-1">
+                  <span className="bg-white/95 backdrop-blur-sm text-[10px] tracking-tight uppercase font-bold text-stone-900 px-3 py-1">
                     /{brand.slug}
                   </span>
                 </div>
@@ -62,21 +62,21 @@ export default async function MarcasPage() {
               <div className="p-6 flex flex-col flex-1 justify-between space-y-4">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-medium text-stone-950 uppercase tracking-widest group-hover:text-stone-600 transition-colors">
+                    <h2 className="text-2xl font-black text-stone-950 uppercase tracking-tight group-hover:text-stone-600 transition-colors">
                       {brand.title}
                     </h2>
                     <ArrowUpRight className="w-5 h-5 text-stone-400 group-hover:text-stone-950 transition-colors" />
                   </div>
-                  <p className="text-xs text-stone-600 line-clamp-3 leading-relaxed">
+                  <p className="text-xs text-stone-600 line-clamp-3 leading-relaxed font-normal">
                     {brand.description}
                   </p>
                 </div>
 
                 <div className="pt-4 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
-                  <span className="font-medium tracking-wider uppercase text-[10px]">
+                  <span className="font-bold tracking-tight uppercase text-[10px]">
                     {productCount} {productCount === 1 ? "prenda en vitrina" : "prendas en vitrina"}
                   </span>
-                  <span className="text-stone-950 font-semibold uppercase tracking-editorial text-[10px] group-hover:underline">
+                  <span className="text-stone-950 font-black uppercase tracking-tight text-[11px] group-hover:underline">
                     Ver Tienda →
                   </span>
                 </div>

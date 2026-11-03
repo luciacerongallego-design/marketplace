@@ -14,41 +14,41 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-24">
-      {/* SECCIÓN A: SLIDER DE MARCAS */}
+      {/* SECCIÓN A: SLIDER DE MARCAS (1280x400px con hover blur y autoplay) */}
       <BrandSlider brands={homeData.slider_brands} />
 
       {/* SECCIÓN B: PRESENTACIÓN EDITORIAL */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           <div className="lg:col-span-5 space-y-4">
-            <div className="flex items-center space-x-2 text-stone-500 text-xs tracking-wideEditorial uppercase">
+            <div className="flex items-center space-x-2 text-stone-500 text-xs tracking-tight uppercase font-bold">
               <Compass className="w-4 h-4" />
               <span>Manifiesto & Propósito</span>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-light text-stone-950 tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-stone-950 tracking-tight leading-tight uppercase">
               {homeData.editorial_title}
             </h1>
-            <div className="w-16 h-0.5 bg-stone-900 mt-6" />
+            <div className="w-16 h-1 bg-stone-950 mt-6" />
           </div>
 
           <div className="lg:col-span-7 space-y-6 text-stone-700 font-sans leading-relaxed text-sm sm:text-base">
-            <p className="font-medium text-stone-900 text-base sm:text-lg leading-relaxed">
+            <p className="font-semibold text-stone-950 text-base sm:text-lg leading-relaxed">
               {homeData.editorial_intro}
             </p>
-            <p className="text-stone-600">
+            <p className="text-stone-600 font-normal">
               {homeData.editorial_body}
             </p>
             <div className="pt-4 flex flex-wrap gap-4">
               <Link
                 href="/marcas"
-                className="inline-flex items-center space-x-2 px-6 py-3.5 bg-stone-950 text-white text-xs tracking-editorial uppercase font-medium hover:bg-stone-800 transition-colors"
+                className="inline-flex items-center space-x-2 px-6 py-3.5 bg-stone-950 text-white text-xs tracking-tight uppercase font-bold hover:bg-stone-800 transition-colors shadow-sm"
               >
                 <span>Conocer las Marcas</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/productos"
-                className="inline-flex items-center space-x-2 px-6 py-3.5 border border-stone-300 text-stone-900 text-xs tracking-editorial uppercase font-medium hover:border-stone-900 transition-colors"
+                className="inline-flex items-center space-x-2 px-6 py-3.5 border-2 border-stone-950 text-stone-950 text-xs tracking-tight uppercase font-bold hover:bg-stone-950 hover:text-white transition-colors"
               >
                 <span>Explorar Catálogo General</span>
               </Link>
@@ -61,17 +61,17 @@ export default async function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-stone-200 pb-6 gap-4">
           <div>
-            <div className="flex items-center space-x-2 text-stone-500 text-xs tracking-wideEditorial uppercase">
+            <div className="flex items-center space-x-2 text-stone-500 text-xs tracking-tight uppercase font-bold">
               <Sparkles className="w-4 h-4" />
               <span>Selección Editorial</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-light text-stone-950 tracking-tight mt-1">
+            <h2 className="text-2xl sm:text-4xl font-black text-stone-950 tracking-tight uppercase mt-1">
               Marcas Destacadas
             </h2>
           </div>
           <Link
             href="/marcas"
-            className="text-xs uppercase tracking-editorial text-stone-700 hover:text-stone-950 font-semibold inline-flex items-center space-x-1"
+            className="text-xs uppercase tracking-tight text-stone-900 hover:text-stone-600 font-bold inline-flex items-center space-x-1"
           >
             <span>Ver Directorio Completo ({homeData.slider_brands.length})</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -83,7 +83,7 @@ export default async function HomePage() {
             <Link
               key={brand.id}
               href={`/marcas/${brand.slug}`}
-              className="group flex flex-col space-y-4 bg-white border border-stone-200/80 p-5 hover:border-stone-950 transition-all duration-300 shadow-sm hover:shadow-md"
+              className="group flex flex-col space-y-4 bg-white border border-stone-200 p-5 hover:border-stone-950 transition-all duration-300 shadow-sm hover:shadow-md"
             >
               <div className="relative aspect-[4/5] w-full bg-stone-100 overflow-hidden">
                 <Image
@@ -95,7 +95,7 @@ export default async function HomePage() {
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-white/90 backdrop-blur-sm text-[10px] tracking-wideEditorial uppercase font-semibold text-stone-900 px-3 py-1">
+                  <span className="bg-white/95 backdrop-blur-sm text-[10px] tracking-tight uppercase font-bold text-stone-900 px-3 py-1">
                     Espacio de Marca
                   </span>
                 </div>
@@ -103,12 +103,12 @@ export default async function HomePage() {
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-medium text-stone-950 uppercase tracking-widest group-hover:text-stone-600 transition-colors">
+                  <h3 className="text-xl font-bold text-stone-950 uppercase tracking-tight group-hover:text-stone-600 transition-colors">
                     {brand.title}
                   </h3>
                   <ArrowRight className="w-4 h-4 text-stone-400 group-hover:text-stone-950 group-hover:translate-x-1 transition-all" />
                 </div>
-                <p className="text-xs text-stone-500 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-stone-600 line-clamp-2 leading-relaxed font-normal">
                   {brand.description}
                 </p>
               </div>
@@ -122,16 +122,16 @@ export default async function HomePage() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="flex items-end justify-between border-b border-stone-200 pb-6">
             <div>
-              <p className="text-stone-500 text-xs tracking-wideEditorial uppercase">
+              <p className="text-stone-500 text-xs tracking-tight uppercase font-bold">
                 Colecciones en Vitrina
               </p>
-              <h2 className="text-2xl sm:text-3xl font-light text-stone-950 tracking-tight mt-1">
+              <h2 className="text-2xl sm:text-4xl font-black text-stone-950 tracking-tight uppercase mt-1">
                 Prendas Recientes
               </h2>
             </div>
             <Link
               href="/productos"
-              className="text-xs uppercase tracking-editorial text-stone-700 hover:text-stone-950 font-semibold inline-flex items-center space-x-1"
+              className="text-xs uppercase tracking-tight text-stone-900 hover:text-stone-600 font-bold inline-flex items-center space-x-1"
             >
               <span>Ver todas las prendas</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -150,13 +150,13 @@ export default async function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden bg-stone-950 text-white p-8 sm:p-16 lg:p-20 flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="relative z-10 max-w-xl space-y-4">
-            <span className="text-[11px] tracking-wideEditorial uppercase text-stone-400">
+            <span className="text-[11px] tracking-tight uppercase text-stone-400 font-bold">
               Catálogo Unificado UPB
             </span>
-            <h2 className="text-3xl sm:text-5xl font-light tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight leading-tight">
               Explora todas las prendas de todas las marcas
             </h2>
-            <p className="text-stone-300 text-sm leading-relaxed">
+            <p className="text-stone-300 text-sm leading-relaxed font-normal">
               Filtra por silueta, categoría de vestuario, marca creadora y rangos de precio en una experiencia curada e interactiva.
             </p>
           </div>
@@ -164,7 +164,7 @@ export default async function HomePage() {
           <div className="relative z-10 flex-shrink-0">
             <Link
               href="/productos"
-              className="inline-flex items-center space-x-3 px-8 py-4 bg-white text-stone-950 text-xs tracking-editorial uppercase font-bold hover:bg-stone-200 transition-colors shadow-xl"
+              className="inline-flex items-center space-x-3 px-8 py-4 bg-white text-stone-950 text-xs tracking-tight uppercase font-black hover:bg-stone-200 transition-colors shadow-xl"
             >
               <span>Ir al Catálogo General</span>
               <ArrowRight className="w-4 h-4" />

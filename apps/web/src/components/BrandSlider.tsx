@@ -71,15 +71,15 @@ export function BrandSlider({ brands }: BrandSliderProps) {
         })}
 
         {/* Capa de Hover: Fondo blurreado con Nombre, Descripcion y Boton Ver Mas */}
-        <div className="absolute inset-0 z-20 bg-black/45 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center p-6 text-center">
-          <div className="max-w-xl space-y-3 transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
-            {/* Titulo de la marca en mayuscula recta */}
-            <h2 className="text-3xl sm:text-5xl font-light text-white tracking-widest uppercase leading-tight">
+        <div className="absolute inset-0 z-20 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center p-6 text-center">
+          <div className="max-w-xl space-y-3 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+            {/* Titulo de la marca en mayusculas, negrita y letras compactas */}
+            <h2 className="text-3xl sm:text-6xl font-black text-white tracking-tight uppercase leading-none">
               {currentBrand.title}
             </h2>
 
             {/* Descripcion de la marca */}
-            <p className="text-xs sm:text-sm text-stone-200 line-clamp-2 leading-relaxed font-sans max-w-lg mx-auto">
+            <p className="text-xs sm:text-sm text-stone-200 line-clamp-2 leading-relaxed font-sans max-w-lg mx-auto font-medium">
               {currentBrand.description}
             </p>
 
@@ -87,7 +87,7 @@ export function BrandSlider({ brands }: BrandSliderProps) {
             <div className="pt-2">
               <Link
                 href={`/marcas/${currentBrand.slug}`}
-                className="inline-flex items-center space-x-2.5 px-6 py-2.5 bg-white text-stone-950 text-xs tracking-editorial uppercase font-medium hover:bg-stone-200 transition-colors shadow-md"
+                className="inline-flex items-center space-x-2.5 px-6 py-2.5 bg-white text-stone-950 text-xs tracking-tight uppercase font-bold hover:bg-stone-200 transition-colors shadow-lg"
               >
                 <span>Ver Espacio de Marca</span>
                 <ArrowUpRight className="w-4 h-4" />
@@ -96,7 +96,7 @@ export function BrandSlider({ brands }: BrandSliderProps) {
           </div>
         </div>
 
-        {/* Flechas de navegacion (visibles en hover o tactil) */}
+        {/* Flechas de navegacion */}
         {slides.length > 1 && (
           <>
             <button
@@ -104,7 +104,7 @@ export function BrandSlider({ brands }: BrandSliderProps) {
                 e.stopPropagation();
                 prevSlide();
               }}
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-black/30 hover:bg-black/60 text-white backdrop-blur-sm flex items-center justify-center transition-all opacity-0 group-hover:opacity-90 hover:!opacity-100"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-sm flex items-center justify-center transition-all opacity-0 group-hover:opacity-90 hover:!opacity-100"
               aria-label="Banner anterior"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -114,7 +114,7 @@ export function BrandSlider({ brands }: BrandSliderProps) {
                 e.stopPropagation();
                 nextSlide();
               }}
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-black/30 hover:bg-black/60 text-white backdrop-blur-sm flex items-center justify-center transition-all opacity-0 group-hover:opacity-90 hover:!opacity-100"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-sm flex items-center justify-center transition-all opacity-0 group-hover:opacity-90 hover:!opacity-100"
               aria-label="Banner siguiente"
             >
               <ChevronRight className="w-5 h-5" />
@@ -132,7 +132,7 @@ export function BrandSlider({ brands }: BrandSliderProps) {
                   e.stopPropagation();
                   setCurrentIndex(idx);
                 }}
-                className={`h-1 transition-all duration-300 rounded-full ${
+                className={`h-1.5 transition-all duration-300 rounded-full ${
                   idx === currentIndex
                     ? "w-6 bg-white"
                     : "w-2 bg-white/50 hover:bg-white/80"

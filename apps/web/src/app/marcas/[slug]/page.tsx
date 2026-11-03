@@ -53,7 +53,7 @@ export default async function BrandDetailPage({
           <div className="absolute top-4 left-4 z-10">
             <Link
               href="/marcas"
-              className="inline-flex items-center space-x-2 px-3 py-1.5 bg-white/90 hover:bg-white text-stone-900 text-[11px] tracking-editorial uppercase transition-all shadow-sm border border-stone-200/80 backdrop-blur-sm font-medium"
+              className="inline-flex items-center space-x-2 px-3 py-1.5 bg-white/95 hover:bg-white text-stone-950 text-[11px] tracking-tight uppercase transition-all shadow-sm border border-stone-300 font-bold backdrop-blur-sm"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Volver a Marcas</span>
@@ -68,7 +68,7 @@ export default async function BrandDetailPage({
             <div className="lg:col-span-8 space-y-4">
               <div className="flex items-center space-x-4">
                 {brand.logo && (
-                  <div className="relative w-16 h-16 rounded-full overflow-hidden border border-stone-200 bg-stone-50 flex-shrink-0">
+                  <div className="relative w-16 h-16 rounded-full overflow-hidden border border-stone-300 bg-stone-50 flex-shrink-0">
                     <Image
                       src={brand.logo}
                       alt={`Logo ${brand.title}`}
@@ -79,23 +79,23 @@ export default async function BrandDetailPage({
                   </div>
                 )}
                 <div>
-                  <h1 className="text-2xl sm:text-3xl font-medium text-stone-950 uppercase tracking-widest">
+                  <h1 className="text-3xl sm:text-5xl font-black text-stone-950 uppercase tracking-tight">
                     {brand.title}
                   </h1>
-                  <p className="text-xs text-stone-500 uppercase tracking-wideEditorial mt-0.5">
+                  <p className="text-xs text-stone-500 uppercase tracking-tight font-bold mt-1">
                     Colección Producto Comercial
                   </p>
                 </div>
               </div>
 
-              <p className="text-sm sm:text-base text-stone-700 leading-relaxed font-sans max-w-3xl pt-2">
+              <p className="text-sm sm:text-base text-stone-700 leading-relaxed font-sans max-w-3xl pt-2 font-normal">
                 {brand.description}
               </p>
             </div>
 
             {/* SECCIÓN C: BOTONES DE ACCESO EXTERNO (Revista, Instagram, Fichas Técnicas) */}
             <div className="lg:col-span-4 flex flex-col space-y-3 pt-2 lg:border-l lg:border-stone-200 lg:pl-8">
-              <span className="text-[11px] tracking-wideEditorial uppercase text-stone-400 font-semibold mb-1">
+              <span className="text-[11px] tracking-tight uppercase text-stone-400 font-bold mb-1">
                 Recursos Editoriales & Técnicos
               </span>
 
@@ -105,7 +105,7 @@ export default async function BrandDetailPage({
                   href={brand.revista_url!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-between px-5 py-3.5 bg-stone-950 text-white text-xs tracking-editorial uppercase font-medium hover:bg-stone-800 transition-colors shadow-sm"
+                  className="inline-flex items-center justify-between px-5 py-3.5 bg-stone-950 text-white text-xs tracking-tight uppercase font-bold hover:bg-stone-800 transition-colors shadow-sm"
                 >
                   <div className="flex items-center space-x-2.5">
                     <BookOpen className="w-4 h-4 text-stone-300" />
@@ -121,7 +121,7 @@ export default async function BrandDetailPage({
                   href={brand.instagram_url!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-between px-5 py-3.5 bg-white border border-stone-300 text-stone-900 text-xs tracking-editorial uppercase font-medium hover:border-stone-900 hover:bg-stone-50 transition-colors"
+                  className="inline-flex items-center justify-between px-5 py-3.5 bg-white border border-stone-300 text-stone-900 text-xs tracking-tight uppercase font-bold hover:border-stone-900 hover:bg-stone-50 transition-colors"
                 >
                   <div className="flex items-center space-x-2.5">
                     <Instagram className="w-4 h-4 text-stone-600" />
@@ -137,7 +137,7 @@ export default async function BrandDetailPage({
                   href={brand.fichas_tecnicas_url!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-between px-5 py-3.5 bg-stone-100 text-stone-800 text-xs tracking-editorial uppercase font-medium hover:bg-stone-200 transition-colors"
+                  className="inline-flex items-center justify-between px-5 py-3.5 bg-stone-100 text-stone-900 text-xs tracking-tight uppercase font-bold hover:bg-stone-200 transition-colors"
                 >
                   <div className="flex items-center space-x-2.5">
                     <FileText className="w-4 h-4 text-stone-600" />
@@ -161,21 +161,21 @@ export default async function BrandDetailPage({
       <section className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-stone-200 pb-4 gap-2">
           <div>
-            <span className="text-[11px] tracking-wideEditorial uppercase text-stone-500 font-medium">
+            <span className="text-[11px] tracking-tight uppercase text-stone-500 font-bold">
               Colección en Vitrina
             </span>
-            <h2 className="text-2xl sm:text-3xl font-light text-stone-950 uppercase tracking-wider mt-0.5">
+            <h2 className="text-2xl sm:text-4xl font-black text-stone-950 uppercase tracking-tight mt-1">
               Catálogo de {brand.title}
             </h2>
           </div>
-          <span className="text-xs uppercase tracking-editorial text-stone-500">
+          <span className="text-xs uppercase tracking-tight text-stone-500 font-bold">
             {products.length} {products.length === 1 ? "prenda disponible" : "prendas disponibles"}
           </span>
         </div>
 
         {products.length === 0 ? (
           <div className="py-20 text-center bg-white border border-stone-200 space-y-2">
-            <p className="text-base text-stone-700 uppercase tracking-wide">
+            <p className="text-base text-stone-700 uppercase tracking-tight font-bold">
               No hay productos publicados para esta marca por el momento.
             </p>
             <p className="text-xs text-stone-400">
@@ -208,7 +208,7 @@ export default async function BrandDetailPage({
         <div className="flex justify-center pt-2">
           <Link
             href="/marcas"
-            className="inline-flex items-center space-x-2 px-8 py-3.5 bg-stone-950 text-white text-xs tracking-editorial uppercase font-medium hover:bg-stone-800 transition-colors shadow-sm"
+            className="inline-flex items-center space-x-2 px-8 py-3.5 bg-stone-950 text-white text-xs tracking-tight uppercase font-bold hover:bg-stone-800 transition-colors shadow-sm"
           >
             <span>Descubrir más marcas</span>
           </Link>
