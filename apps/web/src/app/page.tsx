@@ -13,7 +13,7 @@ export default async function HomePage() {
   const recentProducts = (await getProducts()).slice(0, 4);
 
   return (
-    <div className="space-y-24 sm:space-y-32 pb-24">
+    <div className="space-y-16 sm:space-y-24 pb-24">
       {/* SECCIÓN A: SLIDER DE MARCAS */}
       <BrandSlider brands={homeData.slider_brands} />
 

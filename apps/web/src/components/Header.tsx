@@ -1,21 +1,49 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ShoppingBag, Menu, X } from "lucide-react";
+import { ShoppingBag, Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { Brand } from "@/lib/cms/types";
 
 export function Header() {
   const pathname = usePathname();
   const { totalItems, openCart } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [marcasDropdownOpen, setMarcasDropdownOpen] = useState(false);
+  const [brands, setBrands] = useState<Brand[]>([]);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const navLinks = [
-    { href: "/", label: "INICIO" },
-    { href: "/marcas", label: "MARCAS" },
-    { href: "/productos", label: "PRODUCTOS" },
-  ];
+  // Cargar marcas para el dropdown
+  useEffect(() => {
+    fetch("/api/brands")
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setBrands(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  // Cerrar dropdown al hacer click afuera
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setMarcasDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Cerrar menús al cambiar de ruta
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setMarcasDropdownOpen(false);
+  }, [pathname]);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -41,36 +69,156 @@ export function Header() {
           </button>
         </div>
 
-        {/* Logo / Main Title */}
+        {/* Logo / Main Title con Logo Circular PC */}
         <div className="flex items-center">
           <Link
             href="/"
-            className="flex flex-col group transition-transform"
+            className="flex items-center space-x-3.5 group transition-transform"
           >
-            <span className="font-sans tracking-[0.22em] text-lg sm:text-xl font-medium text-stone-950 uppercase group-hover:opacity-75 transition-opacity">
-              Producto Comercial
-            </span>
-            <span className="text-[9px] tracking-wideEditorial uppercase text-stone-400 font-sans mt-0.5">
-              Marketplace de Diseño & Vestuario
-            </span>
+            {/* Logo circular PC (fondo negro, letras blancas) */}
+            <div className="w-9 h-9 rounded-full bg-stone-950 text-white flex items-center justify-center font-semibold text-xs tracking-tight border border-stone-800 shadow-sm flex-shrink-0 group-hover:scale-105 transition-transform">
+              PC
+            </div>
+
+            <div className="flex flex-col">
+              <span className="font-sans tracking-[0.22em] text-lg sm:text-xl font-medium text-stone-950 uppercase group-hover:opacity-75 transition-opacity">
+                Producto Comercial
+              </span>
+              <span className="text-[9px] tracking-wideEditorial uppercase text-stone-400 font-sans mt-0.5">
+                Marketplace de Diseño & Vestuario
+              </span>
+            </div>
           </Link>
         </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-10">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`text-xs tracking-editorial uppercase transition-colors relative py-1 ${
-                isActive(link.href)
-                  ? "text-stone-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-stone-950"
-                  : "text-stone-500 font-medium hover:text-stone-950"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {/* Botón INICIO */}
+          <Link
+            href="/"
+            className={`text-xs tracking-editorial uppercase transition-colors relative py-1 ${
+              pathname === "/"
+                ? "text-stone-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-stone-950"
+                : "text-stone-500 font-medium hover:text-stone-950"
+            }`}
+          >
+            INICIO
+          </Link>
+
+          {/* Botón MARCAS con Dropdown Desplegable */}
+          <div
+            className="relative py-2"
+            ref={dropdownRef}
+            onMouseEnter={() => setMarcasDropdownOpen(true)}
+            onMouseLeave={() => setMarcasDropdownOpen(false)}
+          >
+            <div className="flex items-center space-x-1 cursor-pointer">
+              <Link
+                href="/marcas"
+                className={`text-xs tracking-editorial uppercase transition-colors relative py-1 ${
+                  isActive("/marcas")
+                    ? "text-stone-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-stone-950"
+                    : "text-stone-500 font-medium hover:text-stone-950"
+                }`}
+              >
+                MARCAS
+              </Link>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMarcasDropdownOpen((prev) => !prev);
+                }}
+                className="text-stone-400 hover:text-stone-900 transition-colors p-0.5"
+                aria-label="Desplegar marcas"
+              >
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    marcasDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+            </div>
+
+            {/* Menú Desplegable de Marcas */}
+            {marcasDropdownOpen && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 w-72 sm:w-80 animate-in fade-in slide-in-from-top-1 duration-150">
+                <div className="bg-white border border-stone-200 shadow-xl py-3 px-2 space-y-1">
+                  <div className="px-3 py-1.5 border-b border-stone-100 flex items-center justify-between">
+                    <span className="text-[10px] tracking-wideEditorial uppercase text-stone-400 font-semibold">
+                      Marcas Participantes
+                    </span>
+                    <span className="text-[10px] text-stone-400 font-mono">
+                      {brands.length} marcas
+                    </span>
+                  </div>
+
+                  <div className="max-h-72 overflow-y-auto py-1 divide-y divide-stone-50">
+                    {brands.length === 0 ? (
+                      <div className="px-3 py-4 text-xs text-stone-400 text-center">
+                        Cargando marcas...
+                      </div>
+                    ) : (
+                      brands.map((brand) => (
+                        <Link
+                          key={brand.id}
+                          href={`/marcas/${brand.slug}`}
+                          onClick={() => setMarcasDropdownOpen(false)}
+                          className="flex items-center space-x-3 px-3 py-2.5 hover:bg-stone-50 transition-colors group"
+                        >
+                          {/* Logo de la marca (SVG o PNG) */}
+                          <div className="relative w-7 h-7 rounded-full overflow-hidden border border-stone-200 bg-stone-100 flex-shrink-0 flex items-center justify-center">
+                            {brand.logo ? (
+                              <Image
+                                src={brand.logo}
+                                alt={`Logo ${brand.title}`}
+                                fill
+                                className="object-cover"
+                                sizes="28px"
+                              />
+                            ) : (
+                              <span className="text-[10px] font-bold text-stone-600 uppercase">
+                                {brand.title.substring(0, 2)}
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="flex-1 min-w-0">
+                            <span className="text-xs font-medium text-stone-900 uppercase tracking-wider block truncate group-hover:text-stone-600">
+                              {brand.title}
+                            </span>
+                          </div>
+
+                          <ArrowRight className="w-3.5 h-3.5 text-stone-300 group-hover:text-stone-900 group-hover:translate-x-0.5 transition-all opacity-0 group-hover:opacity-100" />
+                        </Link>
+                      ))
+                    )}
+                  </div>
+
+                  <div className="pt-2 px-2 border-t border-stone-100">
+                    <Link
+                      href="/marcas"
+                      onClick={() => setMarcasDropdownOpen(false)}
+                      className="block text-center py-2 bg-stone-950 hover:bg-stone-800 text-white text-[11px] uppercase tracking-editorial font-medium transition-colors"
+                    >
+                      Ver Directorio Completo
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Botón PRODUCTOS */}
+          <Link
+            href="/productos"
+            className={`text-xs tracking-editorial uppercase transition-colors relative py-1 ${
+              isActive("/productos")
+                ? "text-stone-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-stone-950"
+                : "text-stone-500 font-medium hover:text-stone-950"
+            }`}
+          >
+            PRODUCTOS
+          </Link>
         </nav>
 
         {/* Action: Cart Button */}
@@ -96,21 +244,58 @@ export function Header() {
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-stone-200 bg-white px-6 py-6 space-y-4 shadow-xl">
-          <nav className="flex flex-col space-y-4">
-            {navLinks.map((link) => (
+          <nav className="flex flex-col space-y-3">
+            <Link
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`text-sm tracking-editorial uppercase py-2 transition-colors ${
+                pathname === "/" ? "text-stone-950 font-bold pl-2 border-l-2 border-stone-950" : "text-stone-600 pl-2"
+              }`}
+            >
+              INICIO
+            </Link>
+
+            <div>
               <Link
-                key={link.href}
-                href={link.href}
+                href="/marcas"
                 onClick={() => setMobileMenuOpen(false)}
-                className={`text-sm tracking-editorial uppercase py-2 transition-colors ${
-                  isActive(link.href)
-                    ? "text-stone-950 font-bold border-l-2 border-stone-950 pl-3"
-                    : "text-stone-600 font-medium hover:text-stone-950 pl-3"
+                className={`text-sm tracking-editorial uppercase py-2 block transition-colors ${
+                  isActive("/marcas") ? "text-stone-950 font-bold pl-2 border-l-2 border-stone-950" : "text-stone-600 pl-2"
                 }`}
               >
-                {link.label}
+                MARCAS
               </Link>
-            ))}
+              {/* Marcas en Mobile */}
+              {brands.length > 0 && (
+                <div className="pl-6 pt-2 space-y-2 border-l border-stone-100 ml-2 mt-1">
+                  {brands.map((b) => (
+                    <Link
+                      key={b.id}
+                      href={`/marcas/${b.slug}`}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center space-x-2.5 py-1 text-xs text-stone-600 hover:text-stone-950 uppercase"
+                    >
+                      {b.logo && (
+                        <div className="relative w-5 h-5 rounded-full overflow-hidden border border-stone-200 flex-shrink-0">
+                          <Image src={b.logo} alt={b.title} fill className="object-cover" sizes="20px" />
+                        </div>
+                      )}
+                      <span>{b.title}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link
+              href="/productos"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`text-sm tracking-editorial uppercase py-2 transition-colors ${
+                isActive("/productos") ? "text-stone-950 font-bold pl-2 border-l-2 border-stone-950" : "text-stone-600 pl-2"
+              }`}
+            >
+              PRODUCTOS
+            </Link>
           </nav>
         </div>
       )}
