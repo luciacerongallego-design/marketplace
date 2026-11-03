@@ -4,6 +4,7 @@ import { getProducts, getProductBySlug } from "@/lib/cms/client";
 import { ProductDetailView } from "@/components/ProductDetailView";
 
 export const revalidate = 3600;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const products = await getProducts();
@@ -29,7 +30,7 @@ export default async function ProductPage({
   const relatedProducts = allBrandProducts.filter((p) => p.id !== product.id);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-16">
       <ProductDetailView product={product} relatedProducts={relatedProducts} />
     </div>
   );

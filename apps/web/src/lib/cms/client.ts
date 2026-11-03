@@ -7,6 +7,11 @@ export const REVALIDATE_SECONDS = 3600;
 // Placeholder neutral SVG para marcas y productos que aún no tengan imagen cargada en Wagtail
 const NEUTRAL_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23f5f5f4'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='16' fill='%23a8a29e' font-weight='600' letter-spacing='0.1em'%3EPRODUCTO COMERCIAL%3C/text%3E%3C/svg%3E";
 
+export function isPdfUrl(url: string | null | undefined): boolean {
+  if (!url) return false;
+  return url.toLowerCase().includes(".pdf");
+}
+
 /**
  * Normaliza las URLs de medios para que funcionen tanto en local como en producción
  */
@@ -26,11 +31,16 @@ export async function fetchFromCms<T>(
   fallback: T
 ): Promise<{ data: T; isFromCms: boolean }> {
   try {
+    const isDev = process.env.NODE_ENV === "development";
     const res = await fetch(url, {
-      next: {
-        revalidate: options.revalidate ?? REVALIDATE_SECONDS,
-        tags: options.tags ?? ["cms"],
-      },
+      ...(isDev
+        ? { cache: "no-store" as const }
+        : {
+            next: {
+              revalidate: options.revalidate ?? REVALIDATE_SECONDS,
+              tags: options.tags ?? ["cms"],
+            },
+          }),
     });
 
     if (!res.ok) {
@@ -86,6 +96,10 @@ export async function getBrands(): Promise<Brand[]> {
       ? resolveMediaUrl(item.promo_banner.url)
       : entryBannerUrl;
 
+    const isEntryPdf = Boolean(item.entry_banner?.is_pdf || isPdfUrl(item.entry_banner?.url));
+    const isExitPdf = Boolean(item.exit_banner?.is_pdf || isPdfUrl(item.exit_banner?.url));
+    const isPromoPdf = Boolean(item.promo_banner?.is_pdf || isPdfUrl(item.promo_banner?.url));
+
     return {
       id: item.id,
       title: item.title,
@@ -96,6 +110,9 @@ export async function getBrands(): Promise<Brand[]> {
       entry_banner: entryBannerUrl,
       exit_banner: exitBannerUrl,
       promo_banner: promoBannerUrl,
+      is_entry_banner_pdf: isEntryPdf,
+      is_exit_banner_pdf: isExitPdf,
+      is_promo_banner_pdf: isPromoPdf,
       instagram_url: item.instagram_url || null,
       revista_url: item.revista_url || null,
       fichas_tecnicas_url: item.fichas_tecnicas_doc?.url

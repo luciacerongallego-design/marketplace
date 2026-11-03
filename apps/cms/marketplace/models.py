@@ -60,6 +60,61 @@ class DocumentUrlField(serializers.Field):
         }
 
 
+class BannerField(serializers.Field):
+    """Serializa un banner administrable que puede ser imagen o documento PDF."""
+
+    def __init__(self, image_field_name, doc_field_name, spec="max-2000x1000", **kwargs):
+        self.image_field_name = image_field_name
+        self.doc_field_name = doc_field_name
+        self.spec = spec
+        super().__init__(**kwargs)
+
+    def to_representation(self, brand_page):
+        request = self.context.get("request")
+
+        # 1. Verificar si tiene archivo PDF asignado
+        doc = getattr(brand_page, self.doc_field_name, None)
+        if doc and doc.url:
+            url = doc.url
+            if request and not url.startswith("http"):
+                url = request.build_absolute_uri(url)
+            return {
+                "id": doc.id,
+                "title": doc.title,
+                "url": url,
+                "is_pdf": True,
+            }
+
+        # 2. Verificar si tiene imagen asignada
+        image = getattr(brand_page, self.image_field_name, None)
+        if image:
+            try:
+                rendition = image.get_rendition(self.spec)
+                url = rendition.url
+                if request and not url.startswith("http"):
+                    url = request.build_absolute_uri(url)
+                return {
+                    "id": image.id,
+                    "title": image.title,
+                    "url": url,
+                    "is_pdf": False,
+                    "width": rendition.width,
+                    "height": rendition.height,
+                }
+            except Exception:
+                url = image.file.url if image.file else None
+                if request and url and not url.startswith("http"):
+                    url = request.build_absolute_uri(url)
+                return {
+                    "id": image.id,
+                    "title": image.title,
+                    "url": url,
+                    "is_pdf": False,
+                }
+
+        return None
+
+
 class ProductCategoryField(serializers.Field):
     """Serializa la categoría snippet de un producto."""
 
@@ -204,7 +259,16 @@ class BrandPage(Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
-        verbose_name="Banner de entrada (Gran formato superior)",
+        verbose_name="Banner de entrada (Imagen JPG/PNG)",
+    )
+    entry_banner_doc = models.ForeignKey(
+        "wagtaildocs.Document",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Banner de entrada (Archivo PDF alternativo)",
+        help_text="Opcional. Sube el banner en formato PDF si no dispones de versión en imagen.",
     )
     exit_banner = models.ForeignKey(
         "wagtailimages.Image",
@@ -212,7 +276,16 @@ class BrandPage(Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
-        verbose_name="Banner de salida (Gran formato inferior)",
+        verbose_name="Banner de salida (Imagen JPG/PNG)",
+    )
+    exit_banner_doc = models.ForeignKey(
+        "wagtaildocs.Document",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Banner de salida (Archivo PDF alternativo)",
+        help_text="Opcional. Sube el banner inferior en formato PDF.",
     )
     promo_banner = models.ForeignKey(
         "wagtailimages.Image",
@@ -220,7 +293,16 @@ class BrandPage(Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
-        verbose_name="Banner promocional para el Slider del Home",
+        verbose_name="Banner promocional para el Slider del Home (Imagen JPG/PNG)",
+    )
+    promo_banner_doc = models.ForeignKey(
+        "wagtaildocs.Document",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Banner promocional para el Slider (Archivo PDF alternativo)",
+        help_text="Opcional. Sube el banner del carrusel en formato PDF.",
     )
     instagram_url = models.URLField(
         blank=True,
@@ -264,10 +346,13 @@ class BrandPage(Page):
         MultiFieldPanel(
             [
                 FieldPanel("entry_banner"),
+                FieldPanel("entry_banner_doc"),
                 FieldPanel("exit_banner"),
+                FieldPanel("exit_banner_doc"),
                 FieldPanel("promo_banner"),
+                FieldPanel("promo_banner_doc"),
             ],
-            heading="Banners Administrables",
+            heading="Banners Administrables (Imagen o PDF)",
         ),
         MultiFieldPanel(
             [
@@ -288,9 +373,9 @@ class BrandPage(Page):
         APIField("fichas_tecnicas_url"),
         APIField("logo", serializer=ImageRenditionField("max-400x400")),
         APIField("cover_image", serializer=ImageRenditionField("max-1600x1200")),
-        APIField("entry_banner", serializer=ImageRenditionField("max-2000x1000")),
-        APIField("exit_banner", serializer=ImageRenditionField("max-2000x1000")),
-        APIField("promo_banner", serializer=ImageRenditionField("max-2000x1000")),
+        APIField("entry_banner", serializer=BannerField("entry_banner", "entry_banner_doc", "max-2000x1000", source="*")),
+        APIField("exit_banner", serializer=BannerField("exit_banner", "exit_banner_doc", "max-2000x1000", source="*")),
+        APIField("promo_banner", serializer=BannerField("promo_banner", "promo_banner_doc", "max-2000x1000", source="*")),
         APIField("fichas_tecnicas_doc", serializer=DocumentUrlField()),
     ]
 

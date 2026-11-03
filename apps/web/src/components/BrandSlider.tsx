@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { Brand } from "@/lib/cms/types";
+import { BannerMedia } from "./BannerMedia";
 
 interface BrandSliderProps {
   brands: Brand[];
@@ -13,6 +13,7 @@ interface BrandSliderProps {
 export function BrandSlider({ brands }: BrandSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   // Filtrar marcas con banner promocional o de entrada
   const slides = brands.filter((b) => b.promo_banner || b.entry_banner);
@@ -25,18 +26,36 @@ export function BrandSlider({ brands }: BrandSliderProps) {
     setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
   }, [slides.length]);
 
-  // Autoplay continuo cada 4.5 segundos (se pausa al pasar el mouse)
+  // Autoplay continuo cada 3 segundos exactos (se pausa al pasar el mouse)
   useEffect(() => {
     if (isPaused || slides.length <= 1) return;
     const timer = setInterval(() => {
       nextSlide();
-    }, 4500);
+    }, 3000);
     return () => clearInterval(timer);
   }, [isPaused, nextSlide, slides.length]);
 
-  if (slides.length === 0) return null;
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+    setIsPaused(true);
+  };
 
-  const currentBrand = slides[currentIndex];
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null || slides.length <= 1) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
+    setTouchStartX(null);
+    setIsPaused(false);
+  };
+
+  if (slides.length === 0) return null;
 
   return (
     <section className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
@@ -45,58 +64,62 @@ export function BrandSlider({ brands }: BrandSliderProps) {
         className="relative w-full aspect-[1280/400] min-h-[220px] max-h-[400px] bg-stone-100 overflow-hidden border border-stone-200 shadow-sm group select-none"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
         aria-label="Carrusel de marcas participantes"
       >
-        {/* Banners con transicion suave */}
-        {slides.map((brand, idx) => {
-          const img = brand.promo_banner || brand.entry_banner;
-          const isCurrent = idx === currentIndex;
-          return (
-            <div
-              key={brand.id}
-              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                isCurrent ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-              }`}
-            >
-              <Image
-                src={img}
-                alt={`Banner ${brand.title}`}
-                fill
-                priority={idx === 0}
-                className="object-cover object-center transition-all duration-500 ease-out group-hover:scale-105 group-hover:blur-[3px] group-hover:brightness-90"
-                sizes="(max-width: 1280px) 100vw, 1280px"
-              />
-            </div>
-          );
-        })}
-
-        {/* Capa de Hover: Fondo blurreado con Nombre, Descripcion y Boton Ver Mas */}
-        <div className="absolute inset-0 z-20 bg-black/50 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center p-6 text-center">
-          <div className="max-w-xl space-y-3 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-            {/* Titulo de la marca en mayusculas, negrita y letras compactas */}
-            <h2 className="text-3xl sm:text-6xl font-black text-white tracking-tight uppercase leading-none">
-              {currentBrand.title}
-            </h2>
-
-            {/* Descripcion de la marca */}
-            <p className="text-xs sm:text-sm text-stone-200 line-clamp-2 leading-relaxed font-sans max-w-lg mx-auto font-medium">
-              {currentBrand.description}
-            </p>
-
-            {/* Boton para ver mas */}
-            <div className="pt-2">
-              <Link
-                href={`/marcas/${currentBrand.slug}`}
-                className="inline-flex items-center space-x-2.5 px-6 py-2.5 bg-white text-stone-950 text-xs tracking-tight uppercase font-bold hover:bg-stone-200 transition-colors shadow-lg"
+        {/* Track horizontal continuo con deslizamiento suave y estético */}
+        <div
+          className="flex h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        >
+          {slides.map((brand, idx) => {
+            const img = brand.promo_banner || brand.entry_banner;
+            return (
+              <div
+                key={brand.id}
+                className="relative w-full h-full flex-shrink-0 overflow-hidden bg-stone-900"
               >
-                <span>Ver Espacio de Marca</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
+                <BannerMedia
+                  url={img}
+                  alt={`Banner ${brand.title}`}
+                  isPdf={brand.is_promo_banner_pdf || brand.is_entry_banner_pdf}
+                  priority={idx === 0}
+                  className="object-cover object-center w-full h-full transition-all duration-700 ease-out group-hover:scale-105 group-hover:blur-[3px] group-hover:brightness-90"
+                  sizes="(max-width: 1280px) 100vw, 1280px"
+                />
+
+                {/* Capa de Hover: Fondo blurreado con Nombre, Descripcion y Boton Ver Mas */}
+                <div className="absolute inset-0 z-20 bg-black/55 backdrop-blur-[4px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center p-6 text-center">
+                  <div className="max-w-xl space-y-3 transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
+                    {/* Titulo de la marca en mayusculas, negrita y letras compactas */}
+                    <h2 className="text-3xl sm:text-6xl font-black text-white tracking-tight uppercase leading-none">
+                      {brand.title}
+                    </h2>
+
+                    {/* Descripcion de la marca */}
+                    <p className="text-xs sm:text-sm text-stone-200 line-clamp-2 leading-relaxed font-sans max-w-lg mx-auto font-medium">
+                      {brand.description}
+                    </p>
+
+                    {/* Boton para ver mas */}
+                    <div className="pt-2">
+                      <Link
+                        href={`/marcas/${brand.slug}`}
+                        className="inline-flex items-center space-x-2.5 px-6 py-2.5 bg-white text-stone-950 text-xs tracking-tight uppercase font-bold hover:bg-stone-200 transition-colors shadow-lg"
+                      >
+                        <span>Ver Espacio de Marca</span>
+                        <ArrowUpRight className="w-4 h-4" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
-        {/* Flechas de navegacion */}
+        {/* Flechas de navegacion limpias y esteticas */}
         {slides.length > 1 && (
           <>
             <button
@@ -104,7 +127,7 @@ export function BrandSlider({ brands }: BrandSliderProps) {
                 e.stopPropagation();
                 prevSlide();
               }}
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-sm flex items-center justify-center transition-all opacity-0 group-hover:opacity-90 hover:!opacity-100"
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/40 hover:bg-black/75 text-white backdrop-blur-md flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 hover:scale-105 active:scale-95 shadow-lg border border-white/10"
               aria-label="Banner anterior"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -114,7 +137,7 @@ export function BrandSlider({ brands }: BrandSliderProps) {
                 e.stopPropagation();
                 nextSlide();
               }}
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-sm flex items-center justify-center transition-all opacity-0 group-hover:opacity-90 hover:!opacity-100"
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/40 hover:bg-black/75 text-white backdrop-blur-md flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 hover:scale-105 active:scale-95 shadow-lg border border-white/10"
               aria-label="Banner siguiente"
             >
               <ChevronRight className="w-5 h-5" />
@@ -122,9 +145,9 @@ export function BrandSlider({ brands }: BrandSliderProps) {
           </>
         )}
 
-        {/* Indicadores inferiores */}
+        {/* Indicadores inferiores tipo barra/píldora estéticos */}
         {slides.length > 1 && (
-          <div className="absolute bottom-3 right-4 z-30 flex items-center space-x-1.5">
+          <div className="absolute bottom-3.5 right-4 z-30 flex items-center space-x-1.5 bg-black/30 backdrop-blur-sm px-2.5 py-1.5 rounded-full border border-white/10">
             {slides.map((_, idx) => (
               <button
                 key={idx}
@@ -132,10 +155,10 @@ export function BrandSlider({ brands }: BrandSliderProps) {
                   e.stopPropagation();
                   setCurrentIndex(idx);
                 }}
-                className={`h-1.5 transition-all duration-300 rounded-full ${
+                className={`h-1.5 transition-all duration-500 rounded-full ${
                   idx === currentIndex
-                    ? "w-6 bg-white"
-                    : "w-2 bg-white/50 hover:bg-white/80"
+                    ? "w-7 bg-white shadow-sm"
+                    : "w-2 bg-white/40 hover:bg-white/75"
                 }`}
                 aria-label={`Ir al banner ${idx + 1}`}
               />

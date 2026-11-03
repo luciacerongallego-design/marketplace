@@ -15,6 +15,9 @@ export interface Brand {
   entry_banner: string;
   exit_banner: string;
   promo_banner: string | null;
+  is_entry_banner_pdf?: boolean;
+  is_exit_banner_pdf?: boolean;
+  is_promo_banner_pdf?: boolean;
   instagram_url: string | null;
   revista_url: string | null;
   fichas_tecnicas_url: string | null;

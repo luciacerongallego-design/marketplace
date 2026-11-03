@@ -113,6 +113,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 WAGTAIL_SITE_NAME = "PRODUCTO COMERCIAL · UPB"
 WAGTAILADMIN_BASE_URL = "http://localhost:8000"
 
+# Wagtail API Configuration
+WAGTAILAPI_LIMIT_MAX = 100
+
 # Wagtail image formats (incluyendo soporte explícito para SVG y PNG)
 WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "svg"]
 

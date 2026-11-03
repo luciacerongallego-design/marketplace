@@ -166,13 +166,13 @@ export function Header() {
                           className="flex items-center space-x-3 px-3 py-2.5 hover:bg-stone-50 transition-colors group"
                         >
                           {/* Logo de la marca (SVG o PNG) */}
-                          <div className="relative w-7 h-7 rounded-full overflow-hidden border border-stone-200 bg-stone-100 flex-shrink-0 flex items-center justify-center">
+                          <div className="relative w-7 h-7 rounded-full overflow-hidden border border-stone-200 bg-white flex-shrink-0 flex items-center justify-center p-0.5 shadow-sm">
                             {brand.logo ? (
                               <Image
                                 src={brand.logo}
                                 alt={`Logo ${brand.title}`}
                                 fill
-                                className="object-cover"
+                                className="object-contain p-0.5"
                                 sizes="28px"
                               />
                             ) : (
@@ -276,8 +276,8 @@ export function Header() {
                       className="flex items-center space-x-2.5 py-1 text-xs font-bold text-stone-600 hover:text-stone-950 uppercase tracking-tight"
                     >
                       {b.logo && (
-                        <div className="relative w-5 h-5 rounded-full overflow-hidden border border-stone-200 flex-shrink-0">
-                          <Image src={b.logo} alt={b.title} fill className="object-cover" sizes="20px" />
+                        <div className="relative w-5 h-5 rounded-full overflow-hidden border border-stone-200 bg-white flex-shrink-0 p-0.5">
+                          <Image src={b.logo} alt={b.title} fill className="object-contain" sizes="20px" />
                         </div>
                       )}
                       <span>{b.title}</span>

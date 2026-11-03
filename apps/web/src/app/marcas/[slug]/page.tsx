@@ -5,8 +5,10 @@ import Link from "next/link";
 import { BookOpen, Instagram, FileText, ArrowLeft, ExternalLink } from "lucide-react";
 import { getBrands, getBrandBySlug, getProducts } from "@/lib/cms/client";
 import { ProductCard } from "@/components/ProductCard";
+import { BannerMedia } from "@/components/BannerMedia";
 
 export const revalidate = 3600;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const brands = await getBrands();
@@ -38,12 +40,12 @@ export default async function BrandDetailPage({
     <div className="space-y-16 pb-24">
       {/* SECCIÓN A & B: BANNER DE ENTRADA (1280x400px, solo imagen) + RECUADRO DE IDENTIDAD CONECTADO */}
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
-        {/* Banner de Entrada 1280x400px */}
+        {/* Banner de Entrada 1280x400px (Imagen o PDF) */}
         <section className="relative w-full aspect-[1280/400] min-h-[220px] max-h-[400px] bg-stone-100 overflow-hidden border border-stone-200">
-          <Image
-            src={brand.entry_banner}
+          <BannerMedia
+            url={brand.entry_banner}
             alt={`Banner principal ${brand.title}`}
-            fill
+            isPdf={brand.is_entry_banner_pdf}
             priority
             className="object-cover object-center"
             sizes="(max-width: 1280px) 100vw, 1280px"
@@ -68,12 +70,12 @@ export default async function BrandDetailPage({
             <div className="lg:col-span-8 space-y-4">
               <div className="flex items-center space-x-4">
                 {brand.logo && (
-                  <div className="relative w-16 h-16 rounded-full overflow-hidden border border-stone-300 bg-stone-50 flex-shrink-0">
+                  <div className="relative w-16 h-16 rounded-full overflow-hidden border border-stone-300 bg-white flex-shrink-0 p-1.5 flex items-center justify-center shadow-sm">
                     <Image
                       src={brand.logo}
                       alt={`Logo ${brand.title}`}
                       fill
-                      className="object-cover"
+                      className="object-contain p-1"
                       sizes="64px"
                     />
                   </div>
@@ -193,12 +195,12 @@ export default async function BrandDetailPage({
 
       {/* SECCIÓN E: BANNER DE SALIDA (1280x250px, solo imagen) + ACCESO A MÁS MARCAS */}
       <section className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        {/* Banner inferior 1280x250px solo como imagen */}
+        {/* Banner inferior 1280x250px (Imagen o PDF) */}
         <div className="relative w-full aspect-[1280/250] min-h-[160px] max-h-[250px] bg-stone-100 overflow-hidden border border-stone-200 shadow-sm">
-          <Image
-            src={brand.exit_banner}
+          <BannerMedia
+            url={brand.exit_banner}
             alt={`Banner de cierre ${brand.title}`}
-            fill
+            isPdf={brand.is_exit_banner_pdf}
             className="object-cover object-center"
             sizes="(max-width: 1280px) 100vw, 1280px"
           />

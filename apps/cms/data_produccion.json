@@ -1,0 +1,588 @@
+[
+{
+  "model": "marketplace.categorysnippet",
+  "pk": 1,
+  "fields": {
+    "name": "Prendas Superiores",
+    "slug": "prendas-superiores"
+  }
+},
+{
+  "model": "marketplace.categorysnippet",
+  "pk": 2,
+  "fields": {
+    "name": "Prendas Inferiores",
+    "slug": "prendas-inferiores"
+  }
+},
+{
+  "model": "marketplace.categorysnippet",
+  "pk": 3,
+  "fields": {
+    "name": "Vestidos",
+    "slug": "vestidos"
+  }
+},
+{
+  "model": "marketplace.categorysnippet",
+  "pk": 4,
+  "fields": {
+    "name": "Abrigos y Chaquetas",
+    "slug": "abrigos-chaquetas"
+  }
+},
+{
+  "model": "marketplace.categorysnippet",
+  "pk": 5,
+  "fields": {
+    "name": "Calzado",
+    "slug": "calzado"
+  }
+},
+{
+  "model": "marketplace.categorysnippet",
+  "pk": 6,
+  "fields": {
+    "name": "Accesorios",
+    "slug": "accesorios"
+  }
+},
+{
+  "model": "marketplace.homepage",
+  "pk": 3,
+  "fields": {
+    "editorial_title": "Centro Comercial Virtual Diseno y Vestuario",
+    "editorial_intro": "Plataforma editorial y vitrina comercial que reune los proyectos de marca, propuestas de vestuario y conceptos de diseno desarrollados por los estudiantes de la asignatura Producto Comercial en la Facultad de Diseno de Vestuario de la UPB.",
+    "editorial_body": "Cada marca representa una exploracion rigurosa que articula investigacion de usuario, conceptualizacion estetica, molderia experimental, fichas tecnicas y viabilidad de produccion."
+  }
+},
+{
+  "model": "marketplace.brandpage",
+  "pk": 4,
+  "fields": {
+    "logo": null,
+    "cover_image": null,
+    "description": "134340 explora la deconstruccion formal y la sastreria experimental. Una narrativa visual que cuestiona la funcionalidad y la silueta tradicional del vestuario a traves de pliegues arquitectonicos, cortes laser y superposiciones tactiles.",
+    "entry_banner": null,
+    "entry_banner_doc": null,
+    "exit_banner": null,
+    "exit_banner_doc": null,
+    "promo_banner": null,
+    "promo_banner_doc": null,
+    "instagram_url": "https://instagram.com/134340_brand",
+    "revista_url": null,
+    "fichas_tecnicas_doc": null,
+    "fichas_tecnicas_url": null,
+    "is_featured_home": true
+  }
+},
+{
+  "model": "marketplace.brandpage",
+  "pk": 6,
+  "fields": {
+    "logo": 1,
+    "cover_image": 2,
+    "description": "la marca blablabla",
+    "entry_banner": 2,
+    "entry_banner_doc": null,
+    "exit_banner": 1,
+    "exit_banner_doc": null,
+    "promo_banner": 3,
+    "promo_banner_doc": null,
+    "instagram_url": "https://www.instagram.com/startbywgsn/",
+    "revista_url": "https://www.semana.com/",
+    "fichas_tecnicas_doc": 1,
+    "fichas_tecnicas_url": null,
+    "is_featured_home": true
+  }
+},
+{
+  "model": "marketplace.brandpage",
+  "pk": 8,
+  "fields": {
+    "logo": 4,
+    "cover_image": null,
+    "description": "chiara wear",
+    "entry_banner": 5,
+    "entry_banner_doc": null,
+    "exit_banner": 6,
+    "exit_banner_doc": null,
+    "promo_banner": 5,
+    "promo_banner_doc": null,
+    "instagram_url": null,
+    "revista_url": null,
+    "fichas_tecnicas_doc": null,
+    "fichas_tecnicas_url": null,
+    "is_featured_home": true
+  }
+},
+{
+  "model": "marketplace.productpage",
+  "pk": 5,
+  "fields": {
+    "category": 1,
+    "price": "185000",
+    "description": "Blusa asimetrica confeccionada en popelina tecnica de algodon con tratamiento hidrofobico. Destaca por su cuello desestructurado con cierre magnetico oculto y abertura longitudinal en espalda.",
+    "model_photo": null,
+    "floating_photo": null
+  }
+},
+{
+  "model": "marketplace.productpage",
+  "pk": 7,
+  "fields": {
+    "category": 6,
+    "price": "5228",
+    "description": "lalalala",
+    "model_photo": 2,
+    "floating_photo": 1
+  }
+},
+{
+  "model": "marketplace.productpage",
+  "pk": 9,
+  "fields": {
+    "category": 2,
+    "price": "500000",
+    "description": "es un pantalon",
+    "model_photo": 4,
+    "floating_photo": 1
+  }
+},
+{
+  "model": "marketplace.productgalleryimage",
+  "pk": 1,
+  "fields": {
+    "sort_order": 0,
+    "page": 9,
+    "image": 2,
+    "caption": ""
+  }
+},
+{
+  "model": "marketplace.productgalleryimage",
+  "pk": 2,
+  "fields": {
+    "sort_order": 1,
+    "page": 9,
+    "image": 3,
+    "caption": ""
+  }
+},
+{
+  "model": "wagtailimages.image",
+  "pk": 1,
+  "fields": {
+    "collection": 1,
+    "title": "f48db559-dd7e-412c-a707-f02f30bc60be",
+    "file": "original_images/f48db559-dd7e-412c-a707-f02f30bc60be.jpg",
+    "description": "",
+    "width": 736,
+    "height": 981,
+    "created_at": "2026-11-03T20:54:41.256Z",
+    "uploaded_by_user": 1,
+    "focal_point_x": null,
+    "focal_point_y": null,
+    "focal_point_width": null,
+    "focal_point_height": null,
+    "file_size": 50521,
+    "file_hash": "76d596dfedb2691cc4b0174b481baff63b8daf07"
+  }
+},
+{
+  "model": "wagtailimages.image",
+  "pk": 2,
+  "fields": {
+    "collection": 1,
+    "title": "JaOr (1)",
+    "file": "original_images/image-removebg-preview_92.png",
+    "description": "",
+    "width": 497,
+    "height": 502,
+    "created_at": "2026-11-03T20:56:20.623Z",
+    "uploaded_by_user": 1,
+    "focal_point_x": null,
+    "focal_point_y": null,
+    "focal_point_width": null,
+    "focal_point_height": null,
+    "file_size": 181300,
+    "file_hash": "c364fecd17491bc0592c9b9364a032c52e6a6623"
+  }
+},
+{
+  "model": "wagtailimages.image",
+  "pk": 3,
+  "fields": {
+    "collection": 1,
+    "title": "imprimir tabloide",
+    "file": "original_images/imprimir_tabloide.png",
+    "description": "",
+    "width": 1633,
+    "height": 525,
+    "created_at": "2026-11-03T20:56:47.759Z",
+    "uploaded_by_user": 1,
+    "focal_point_x": null,
+    "focal_point_y": null,
+    "focal_point_width": null,
+    "focal_point_height": null,
+    "file_size": 1874398,
+    "file_hash": "68d9def731b6e9467b1d04dd325d6590c4cf7788"
+  }
+},
+{
+  "model": "wagtailimages.image",
+  "pk": 4,
+  "fields": {
+    "collection": 1,
+    "title": "channels4_profile (1)",
+    "file": "original_images/channels4_profile_1.jpg",
+    "description": "",
+    "width": 900,
+    "height": 900,
+    "created_at": "2026-11-03T21:50:11.913Z",
+    "uploaded_by_user": 1,
+    "focal_point_x": null,
+    "focal_point_y": null,
+    "focal_point_width": null,
+    "focal_point_height": null,
+    "file_size": 24567,
+    "file_hash": "2360708372ad8441ecf71dc5785ec841f0449116"
+  }
+},
+{
+  "model": "wagtailimages.image",
+  "pk": 5,
+  "fields": {
+    "collection": 1,
+    "title": "(1280 x 400 px)",
+    "file": "original_images/1280_x_400_px_page-0001.jpg",
+    "description": "",
+    "width": 2000,
+    "height": 625,
+    "created_at": "2026-11-03T21:52:37.701Z",
+    "uploaded_by_user": 1,
+    "focal_point_x": null,
+    "focal_point_y": null,
+    "focal_point_width": null,
+    "focal_point_height": null,
+    "file_size": 683970,
+    "file_hash": "f96ff5efb7e9ba1dc9f3a258f9c8d962d02e179c"
+  }
+},
+{
+  "model": "wagtailimages.image",
+  "pk": 6,
+  "fields": {
+    "collection": 1,
+    "title": "Banner pequeño _page-0001",
+    "file": "original_images/Banner_pequeno__page-0001.jpg",
+    "description": "",
+    "width": 2000,
+    "height": 391,
+    "created_at": "2026-11-03T21:54:42.933Z",
+    "uploaded_by_user": 1,
+    "focal_point_x": null,
+    "focal_point_y": null,
+    "focal_point_width": null,
+    "focal_point_height": null,
+    "file_size": 432715,
+    "file_hash": "e7bed970126ee94476df2c1eb08bebc18c81c29b"
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 1,
+  "fields": {
+    "filter_spec": "max-165x165",
+    "file": "images/f48db559-dd7e-412c-a707-f02f30bc60be.max-165x165.jpg",
+    "width": 123,
+    "height": 165,
+    "focal_point_key": "",
+    "image": 1
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 2,
+  "fields": {
+    "filter_spec": "max-165x165",
+    "file": "images/image-removebg-preview_92.max-165x165.png",
+    "width": 163,
+    "height": 165,
+    "focal_point_key": "",
+    "image": 2
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 3,
+  "fields": {
+    "filter_spec": "max-165x165",
+    "file": "images/imprimir_tabloide.max-165x165.png",
+    "width": 165,
+    "height": 53,
+    "focal_point_key": "",
+    "image": 3
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 4,
+  "fields": {
+    "filter_spec": "max-400x400",
+    "file": "images/f48db559-dd7e-412c-a707-f02f30bc60be.max-400x400.jpg",
+    "width": 300,
+    "height": 400,
+    "focal_point_key": "",
+    "image": 1
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 5,
+  "fields": {
+    "filter_spec": "max-1600x1200",
+    "file": "images/image-removebg-preview_92.max-1600x1200.png",
+    "width": 497,
+    "height": 502,
+    "focal_point_key": "",
+    "image": 2
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 6,
+  "fields": {
+    "filter_spec": "max-2000x1000",
+    "file": "images/image-removebg-preview_92.max-2000x1000.png",
+    "width": 497,
+    "height": 502,
+    "focal_point_key": "",
+    "image": 2
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 7,
+  "fields": {
+    "filter_spec": "max-2000x1000",
+    "file": "images/f48db559-dd7e-412c-a707-f02f30bc60be.max-2000x1000.jpg",
+    "width": 736,
+    "height": 981,
+    "focal_point_key": "",
+    "image": 1
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 8,
+  "fields": {
+    "filter_spec": "max-2000x1000",
+    "file": "images/imprimir_tabloide.max-2000x1000.png",
+    "width": 1633,
+    "height": 525,
+    "focal_point_key": "",
+    "image": 3
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 9,
+  "fields": {
+    "filter_spec": "max-1200x1600",
+    "file": "images/image-removebg-preview_92.max-1200x1600.png",
+    "width": 497,
+    "height": 502,
+    "focal_point_key": "",
+    "image": 2
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 10,
+  "fields": {
+    "filter_spec": "max-1200x1600",
+    "file": "images/f48db559-dd7e-412c-a707-f02f30bc60be.max-1200x1600.jpg",
+    "width": 736,
+    "height": 981,
+    "focal_point_key": "",
+    "image": 1
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 11,
+  "fields": {
+    "filter_spec": "max-165x165",
+    "file": "images/channels4_profile_1.max-165x165.jpg",
+    "width": 165,
+    "height": 165,
+    "focal_point_key": "",
+    "image": 4
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 12,
+  "fields": {
+    "filter_spec": "max-165x165",
+    "file": "images/1280_x_400_px_page-0001.max-165x165.jpg",
+    "width": 165,
+    "height": 51,
+    "focal_point_key": "",
+    "image": 5
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 13,
+  "fields": {
+    "filter_spec": "max-400x400",
+    "file": "images/channels4_profile_1.max-400x400.jpg",
+    "width": 400,
+    "height": 400,
+    "focal_point_key": "",
+    "image": 4
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 14,
+  "fields": {
+    "filter_spec": "max-2000x1000",
+    "file": "images/1280_x_400_px_page-0001.max-2000x1000.jpg",
+    "width": 2000,
+    "height": 625,
+    "focal_point_key": "",
+    "image": 5
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 15,
+  "fields": {
+    "filter_spec": "max-165x165",
+    "file": "images/Banner_pequeno__page-0001.max-165x165.jpg",
+    "width": 165,
+    "height": 32,
+    "focal_point_key": "",
+    "image": 6
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 16,
+  "fields": {
+    "filter_spec": "max-2000x1000",
+    "file": "images/Banner_pequeno__page-0001.max-2000x1000.jpg",
+    "width": 2000,
+    "height": 391,
+    "focal_point_key": "",
+    "image": 6
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 17,
+  "fields": {
+    "filter_spec": "max-1200x1600",
+    "file": "images/channels4_profile_1.max-1200x1600.jpg",
+    "width": 900,
+    "height": 900,
+    "focal_point_key": "",
+    "image": 4
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 18,
+  "fields": {
+    "filter_spec": "max-1400x1400",
+    "file": "images/image-removebg-preview_92.max-1400x1400.png",
+    "width": 497,
+    "height": 502,
+    "focal_point_key": "",
+    "image": 2
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 19,
+  "fields": {
+    "filter_spec": "max-1400x1400",
+    "file": "images/imprimir_tabloide.max-1400x1400.png",
+    "width": 1400,
+    "height": 450,
+    "focal_point_key": "",
+    "image": 3
+  }
+},
+{
+  "model": "wagtaildocs.document",
+  "pk": 1,
+  "fields": {
+    "collection": 1,
+    "title": "PRECOSTEO BLAZER",
+    "file": "documents/PRECOSTEO_BLAZER.pdf",
+    "created_at": "2026-11-03T20:57:28.663Z",
+    "uploaded_by_user": 1,
+    "file_size": 266006,
+    "file_hash": "fd258ed42d39bbf843f8d716c5a1226d2c484370"
+  }
+},
+{
+  "model": "wagtaildocs.document",
+  "pk": 2,
+  "fields": {
+    "collection": 1,
+    "title": "Banner pequeño _page-0001",
+    "file": "documents/Banner_pequeno__page-0001.jpg",
+    "created_at": "2026-11-03T21:52:54.050Z",
+    "uploaded_by_user": 1,
+    "file_size": 432715,
+    "file_hash": "e7bed970126ee94476df2c1eb08bebc18c81c29b"
+  }
+},
+{
+  "model": "wagtaildocs.document",
+  "pk": 3,
+  "fields": {
+    "collection": 1,
+    "title": "Banner pequeño",
+    "file": "documents/Banner_pequeno_.pdf",
+    "created_at": "2026-11-03T21:53:21.226Z",
+    "uploaded_by_user": 1,
+    "file_size": 2950809,
+    "file_hash": "5d2aa02102131760521ee1425866c2cb9c17e5a8"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$LTXjE2MRTiVbaL5upPcsuX$2nP5a+kVMnrGQWjDNrSWZSZRGKBA0vEcgF0AtChrKPw=",
+    "last_login": "2026-11-03T18:19:03.257Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@productocomercial.upb.edu.co",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-11-03T17:49:05.598Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "wagtailcore.site",
+  "pk": 2,
+  "fields": {
+    "hostname": "localhost",
+    "port": 8000,
+    "site_name": "PRODUCTO COMERCIAL UPB",
+    "root_page": 3,
+    "is_default_site": true
+  }
+}
+]
