@@ -19,34 +19,100 @@ class ImageRenditionField(serializers.Field):
     def to_representation(self, image):
         if not image:
             return None
+        request = self.context.get("request")
         try:
             rendition = image.get_rendition(self.spec)
+            url = rendition.url
+            if request and not url.startswith("http"):
+                url = request.build_absolute_uri(url)
             return {
                 "id": image.id,
                 "title": image.title,
-                "url": rendition.url,
+                "url": url,
                 "width": rendition.width,
                 "height": rendition.height,
             }
         except Exception:
+            url = image.file.url if image.file else None
+            if request and url and not url.startswith("http"):
+                url = request.build_absolute_uri(url)
             return {
                 "id": image.id,
                 "title": image.title,
-                "url": image.file.url if image.file else None,
+                "url": url,
             }
 
 
 class DocumentUrlField(serializers.Field):
-    """Serializa un documento PDF de Wagtail devolviendo su URL."""
+    """Serializa un documento PDF de Wagtail devolviendo su URL absoluta."""
 
     def to_representation(self, doc):
         if not doc:
             return None
+        url = doc.url
+        request = self.context.get("request")
+        if request and not url.startswith("http"):
+            url = request.build_absolute_uri(url)
         return {
             "id": doc.id,
             "title": doc.title,
-            "url": doc.url,
+            "url": url,
         }
+
+
+class ProductCategoryField(serializers.Field):
+    """Serializa la categoría snippet de un producto."""
+
+    def to_representation(self, category):
+        if not category:
+            return None
+        return {
+            "id": category.id,
+            "name": category.name,
+            "slug": category.slug,
+        }
+
+
+class ProductBrandField(serializers.Field):
+    """Serializa la marca propietaria (página padre) de un producto."""
+
+    def to_representation(self, product_page):
+        try:
+            parent = product_page.get_parent()
+            if parent:
+                brand = parent.specific
+                if hasattr(brand, "slug"):
+                    return {
+                        "id": brand.id,
+                        "title": brand.title,
+                        "slug": brand.slug,
+                    }
+        except Exception:
+            pass
+        return None
+
+
+class ProductGalleryImagesField(serializers.Field):
+    """Serializa la galería de fotografías adicionales de una prenda."""
+
+    def to_representation(self, gallery_images):
+        items = []
+        request = self.context.get("request")
+        try:
+            for item in gallery_images.all():
+                if item.image:
+                    rendition = item.image.get_rendition("max-1400x1400")
+                    url = rendition.url
+                    if request and not url.startswith("http"):
+                        url = request.build_absolute_uri(url)
+                    items.append({
+                        "id": item.image.id,
+                        "url": url,
+                        "caption": item.caption,
+                    })
+        except Exception:
+            pass
+        return items
 
 
 # --- CATEGORÍAS (Snippet administrable en Wagtail) ---
@@ -290,11 +356,11 @@ class ProductPage(Page):
     api_fields = [
         APIField("price"),
         APIField("description"),
-        APIField("category", serializer=serializers.SerializerMethodField("get_category_data")),
-        APIField("brand", serializer=serializers.SerializerMethodField("get_brand_data")),
+        APIField("category", serializer=ProductCategoryField()),
+        APIField("brand", serializer=ProductBrandField(source="*")),
         APIField("model_photo", serializer=ImageRenditionField("max-1200x1600")),
         APIField("floating_photo", serializer=ImageRenditionField("max-1200x1600")),
-        APIField("gallery", serializer=serializers.SerializerMethodField("get_gallery_data")),
+        APIField("gallery", serializer=ProductGalleryImagesField(source="gallery_images")),
     ]
 
     def get_category_data(self, page):
