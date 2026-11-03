@@ -8,7 +8,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-stone-800">
           {/* Col 1: Identity */}
           <div className="md:col-span-2 space-y-4">
-            <span className="font-serif tracking-editorial text-2xl font-light text-white uppercase block">
+            <span className="font-medium tracking-[0.22em] text-lg sm:text-xl text-white uppercase block">
               Producto Comercial
             </span>
             <p className="text-stone-400 text-xs sm:text-sm leading-relaxed max-w-md font-sans">

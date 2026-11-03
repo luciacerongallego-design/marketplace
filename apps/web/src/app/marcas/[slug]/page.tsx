@@ -35,44 +35,34 @@ export default async function BrandDetailPage({
   const hasFichas = Boolean(brand.fichas_tecnicas_url);
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-24">
-      {/* SECCIÓN A: BANNER DE ENTRADA (Gran formato superior) */}
-      <section className="relative w-full h-[50vh] sm:h-[65vh] min-h-[380px] max-h-[650px] bg-stone-900 overflow-hidden">
-        <Image
-          src={brand.entry_banner}
-          alt={`Banner principal ${brand.title}`}
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/20" />
+    <div className="space-y-16 pb-24">
+      {/* SECCIÓN A & B: BANNER DE ENTRADA (1280x400px, solo imagen) + RECUADRO DE IDENTIDAD CONECTADO */}
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
+        {/* Banner de Entrada 1280x400px */}
+        <section className="relative w-full aspect-[1280/400] min-h-[220px] max-h-[400px] bg-stone-100 overflow-hidden border border-stone-200">
+          <Image
+            src={brand.entry_banner}
+            alt={`Banner principal ${brand.title}`}
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="(max-width: 1280px) 100vw, 1280px"
+          />
 
-        {/* Back Link */}
-        <div className="absolute top-6 left-4 sm:left-8 z-20">
-          <Link
-            href="/marcas"
-            className="inline-flex items-center space-x-2 px-4 py-2 bg-black/40 hover:bg-black/70 backdrop-blur-md text-white text-xs tracking-editorial uppercase transition-colors rounded"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Volver a Marcas</span>
-          </Link>
-        </div>
+          {/* Enlace discreto para regresar */}
+          <div className="absolute top-4 left-4 z-10">
+            <Link
+              href="/marcas"
+              className="inline-flex items-center space-x-2 px-3 py-1.5 bg-white/90 hover:bg-white text-stone-900 text-[11px] tracking-editorial uppercase transition-all shadow-sm border border-stone-200/80 backdrop-blur-sm font-medium"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Volver a Marcas</span>
+            </Link>
+          </div>
+        </section>
 
-        {/* Banner Title */}
-        <div className="absolute inset-x-0 bottom-0 z-20 pb-12 sm:pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="text-stone-300 text-[11px] tracking-wideEditorial uppercase block mb-2 font-medium">
-            Espacio Oficial de Marca · UPB
-          </span>
-          <h1 className="text-4xl sm:text-7xl font-serif text-white tracking-tight uppercase font-light">
-            {brand.title}
-          </h1>
-        </div>
-      </section>
-
-      {/* SECCIÓN B & C: IDENTIDAD DE MARCA Y BOTONES DE ACCESO EXTERNO */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white border border-stone-200 p-8 sm:p-12 space-y-8 shadow-sm">
+        {/* SECCIÓN B & C: IDENTIDAD DE MARCA Y BOTONES (Directamente debajo del banner, sin separación) */}
+        <section className="bg-white border border-stone-200 border-t-0 p-6 sm:p-10 lg:p-12 shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Identity Info */}
             <div className="lg:col-span-8 space-y-4">
@@ -89,10 +79,10 @@ export default async function BrandDetailPage({
                   </div>
                 )}
                 <div>
-                  <h2 className="text-2xl sm:text-3xl font-serif text-stone-950 uppercase tracking-wider font-medium">
+                  <h1 className="text-2xl sm:text-3xl font-medium text-stone-950 uppercase tracking-widest">
                     {brand.title}
-                  </h2>
-                  <p className="text-xs text-stone-500 uppercase tracking-wideEditorial">
+                  </h1>
+                  <p className="text-xs text-stone-500 uppercase tracking-wideEditorial mt-0.5">
                     Colección Producto Comercial
                   </p>
                 </div>
@@ -164,17 +154,17 @@ export default async function BrandDetailPage({
               )}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* SECCIÓN D: CATÁLOGO DE PRODUCTOS DE LA MARCA */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-stone-200 pb-4 gap-2">
           <div>
-            <span className="text-[11px] tracking-wideEditorial uppercase text-stone-500">
+            <span className="text-[11px] tracking-wideEditorial uppercase text-stone-500 font-medium">
               Colección en Vitrina
             </span>
-            <h2 className="text-2xl sm:text-3xl font-serif text-stone-950 font-light mt-0.5">
+            <h2 className="text-2xl sm:text-3xl font-light text-stone-950 uppercase tracking-wider mt-0.5">
               Catálogo de {brand.title}
             </h2>
           </div>
@@ -185,7 +175,7 @@ export default async function BrandDetailPage({
 
         {products.length === 0 ? (
           <div className="py-20 text-center bg-white border border-stone-200 space-y-2">
-            <p className="font-serif text-lg text-stone-700">
+            <p className="text-base text-stone-700 uppercase tracking-wide">
               No hay productos publicados para esta marca por el momento.
             </p>
             <p className="text-xs text-stone-400">
@@ -201,34 +191,27 @@ export default async function BrandDetailPage({
         )}
       </section>
 
-      {/* SECCIÓN E: BANNER DE SALIDA (Segundo banner horizontal independiente) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative w-full h-[40vh] sm:h-[50vh] min-h-[300px] max-h-[500px] bg-stone-900 overflow-hidden">
+      {/* SECCIÓN E: BANNER DE SALIDA (1280x250px, solo imagen) + ACCESO A MÁS MARCAS */}
+      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        {/* Banner inferior 1280x250px solo como imagen */}
+        <div className="relative w-full aspect-[1280/250] min-h-[160px] max-h-[250px] bg-stone-100 overflow-hidden border border-stone-200 shadow-sm">
           <Image
             src={brand.exit_banner}
             alt={`Banner de cierre ${brand.title}`}
             fill
             className="object-cover object-center"
-            sizes="100vw"
+            sizes="(max-width: 1280px) 100vw, 1280px"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
+        </div>
 
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 space-y-4 z-10">
-            <span className="text-[11px] tracking-wideEditorial uppercase text-stone-300">
-              Final del Espacio de Marca
-            </span>
-            <h3 className="text-3xl sm:text-5xl font-serif text-white tracking-wide uppercase font-light">
-              {brand.title}
-            </h3>
-            <div className="pt-2">
-              <Link
-                href="/marcas"
-                className="inline-flex items-center space-x-2 px-6 py-3 bg-white text-stone-950 text-xs tracking-editorial uppercase font-semibold hover:bg-stone-200 transition-colors"
-              >
-                <span>Descubrir Más Marcas</span>
-              </Link>
-            </div>
-          </div>
+        {/* Abajo del banner: Botón Descubrir más marcas (sin texto de espacio final) */}
+        <div className="flex justify-center pt-2">
+          <Link
+            href="/marcas"
+            className="inline-flex items-center space-x-2 px-8 py-3.5 bg-stone-950 text-white text-xs tracking-editorial uppercase font-medium hover:bg-stone-800 transition-colors shadow-sm"
+          >
+            <span>Descubrir más marcas</span>
+          </Link>
         </div>
       </section>
     </div>

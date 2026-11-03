@@ -47,10 +47,10 @@ export function Header() {
             href="/"
             className="flex flex-col group transition-transform"
           >
-            <span className="font-serif tracking-editorial text-xl sm:text-2xl font-light text-stone-950 uppercase group-hover:opacity-80 transition-opacity">
+            <span className="font-sans tracking-[0.22em] text-lg sm:text-xl font-medium text-stone-950 uppercase group-hover:opacity-75 transition-opacity">
               Producto Comercial
             </span>
-            <span className="text-[9px] tracking-wideEditorial uppercase text-stone-500 font-sans -mt-0.5">
+            <span className="text-[9px] tracking-wideEditorial uppercase text-stone-400 font-sans mt-0.5">
               Marketplace de Diseño & Vestuario
             </span>
           </Link>

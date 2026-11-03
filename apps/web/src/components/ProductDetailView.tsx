@@ -118,7 +118,7 @@ export function ProductDetailView({ product, relatedProducts = [] }: ProductDeta
             </div>
 
             {/* Title */}
-            <h1 className="text-3xl sm:text-4xl font-serif text-stone-950 font-normal leading-tight pt-1">
+            <h1 className="text-3xl sm:text-4xl text-stone-950 font-light leading-tight pt-1 tracking-tight">
               {product.title}
             </h1>
 
@@ -218,7 +218,7 @@ export function ProductDetailView({ product, relatedProducts = [] }: ProductDeta
               <span className="text-[11px] tracking-wideEditorial uppercase text-stone-500">
                 Misma Marca
               </span>
-              <h2 className="text-2xl font-serif text-stone-950 font-light mt-0.5">
+              <h2 className="text-2xl text-stone-950 font-light mt-0.5 tracking-tight">
                 Otras prendas de {product.brand.title}
               </h2>
             </div>

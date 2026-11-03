@@ -18,7 +18,7 @@ export default async function MarcasPage() {
           <Sparkles className="w-4 h-4" />
           <span>Directorio UPB</span>
         </div>
-        <h1 className="text-4xl sm:text-6xl font-serif text-stone-950 font-light">
+        <h1 className="text-3xl sm:text-5xl font-light text-stone-950 tracking-tight">
           Marcas Participantes
         </h1>
         <p className="text-sm sm:text-base text-stone-600 max-w-2xl font-sans leading-relaxed">
@@ -62,7 +62,7 @@ export default async function MarcasPage() {
               <div className="p-6 flex flex-col flex-1 justify-between space-y-4">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-serif text-stone-950 uppercase tracking-wider font-medium group-hover:text-stone-600 transition-colors">
+                    <h2 className="text-xl font-medium text-stone-950 uppercase tracking-widest group-hover:text-stone-600 transition-colors">
                       {brand.title}
                     </h2>
                     <ArrowUpRight className="w-5 h-5 text-stone-400 group-hover:text-stone-950 transition-colors" />

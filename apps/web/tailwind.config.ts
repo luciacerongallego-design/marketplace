@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        serif: ["var(--font-serif)", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "Helvetica Neue", "Arial", "sans-serif"],
+        serif: ["var(--font-sans)", "Helvetica Neue", "Arial", "sans-serif"],
       },
       colors: {
         brand: {
@@ -23,8 +23,8 @@ const config: Config = {
         },
       },
       letterSpacing: {
-        editorial: "0.15em",
-        wideEditorial: "0.25em",
+        editorial: "0.14em",
+        wideEditorial: "0.22em",
       },
     },
   },

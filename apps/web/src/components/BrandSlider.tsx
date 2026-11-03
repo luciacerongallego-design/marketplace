@@ -79,7 +79,7 @@ export function BrandSlider({ brands }: BrandSliderProps) {
             <span>UPB {new Date().getFullYear()}</span>
           </div>
 
-          <h2 className="text-4xl sm:text-6xl font-serif text-white tracking-tight uppercase font-light leading-none">
+          <h2 className="text-3xl sm:text-5xl font-light text-white tracking-widest uppercase leading-none">
             {currentBrand.title}
           </h2>
 

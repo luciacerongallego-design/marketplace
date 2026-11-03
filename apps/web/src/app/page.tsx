@@ -25,7 +25,7 @@ export default async function HomePage() {
               <Compass className="w-4 h-4" />
               <span>Manifiesto & Propósito</span>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-serif text-stone-950 font-light leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-light text-stone-950 tracking-tight leading-tight">
               {homeData.editorial_title}
             </h1>
             <div className="w-16 h-0.5 bg-stone-900 mt-6" />
@@ -65,7 +65,7 @@ export default async function HomePage() {
               <Sparkles className="w-4 h-4" />
               <span>Selección Editorial</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-serif text-stone-950 font-light mt-1">
+            <h2 className="text-2xl sm:text-4xl font-light text-stone-950 tracking-tight mt-1">
               Marcas Destacadas
             </h2>
           </div>
@@ -103,7 +103,7 @@ export default async function HomePage() {
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-serif text-stone-950 uppercase tracking-wider font-medium group-hover:text-stone-600 transition-colors">
+                  <h3 className="text-xl font-medium text-stone-950 uppercase tracking-widest group-hover:text-stone-600 transition-colors">
                     {brand.title}
                   </h3>
                   <ArrowRight className="w-4 h-4 text-stone-400 group-hover:text-stone-950 group-hover:translate-x-1 transition-all" />
@@ -125,7 +125,7 @@ export default async function HomePage() {
               <p className="text-stone-500 text-xs tracking-wideEditorial uppercase">
                 Colecciones en Vitrina
               </p>
-              <h2 className="text-2xl sm:text-3xl font-serif text-stone-950 font-light mt-1">
+              <h2 className="text-2xl sm:text-3xl font-light text-stone-950 tracking-tight mt-1">
                 Prendas Recientes
               </h2>
             </div>
@@ -153,7 +153,7 @@ export default async function HomePage() {
             <span className="text-[11px] tracking-wideEditorial uppercase text-stone-400">
               Catálogo Unificado UPB
             </span>
-            <h2 className="text-3xl sm:text-5xl font-serif font-light leading-tight">
+            <h2 className="text-3xl sm:text-5xl font-light tracking-tight leading-tight">
               Explora todas las prendas de todas las marcas
             </h2>
             <p className="text-stone-300 text-sm leading-relaxed">

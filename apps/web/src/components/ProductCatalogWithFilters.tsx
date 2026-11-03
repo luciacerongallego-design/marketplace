@@ -219,7 +219,7 @@ export function ProductCatalogWithFilters({
       {/* Product Grid */}
       {filteredProducts.length === 0 ? (
         <div className="py-20 text-center space-y-4 bg-white border border-stone-200">
-          <p className="text-base font-serif text-stone-800">
+          <p className="text-base text-stone-800 font-medium">
             No se encontraron prendas con los criterios seleccionados.
           </p>
           <p className="text-xs text-stone-500 max-w-md mx-auto">
