@@ -7,8 +7,15 @@ DEBUG = False
 
 SECRET_KEY = env("SECRET_KEY", default="django-insecure-prod-key-please-set-env-var-production-upb")
 
-# Hosts permitidos (separados por coma en variable de entorno)
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
+# Hosts permitidos
+raw_hosts = env.list("ALLOWED_HOSTS", default=["*"])
+ALLOWED_HOSTS = []
+for h in raw_hosts:
+    ALLOWED_HOSTS.append(h)
+    if h.startswith("*."):
+        ALLOWED_HOSTS.append(h[1:])  # Django requiere .onrender.com en vez de *.onrender.com
+if not any(h in ["*", ".onrender.com"] for h in ALLOWED_HOSTS):
+    ALLOWED_HOSTS.append(".onrender.com")
 
 # Base de datos en producción (PostgreSQL mediante DATABASE_URL)
 DATABASES = {
@@ -24,6 +31,7 @@ CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=True)
 CSRF_TRUSTED_ORIGINS = env.list(
     "CSRF_TRUSTED_ORIGINS",
     default=[
+        "https://*.onrender.com",
         "https://*.railway.app",
         "https://*.up.railway.app",
         "https://*.vercel.app",

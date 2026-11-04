@@ -43,6 +43,16 @@ export function BannerMedia({
     );
   }
 
+  if (loadError) {
+    return (
+      <div className="relative w-full h-full bg-stone-200/60 overflow-hidden flex items-center justify-center">
+        <span className="text-xs uppercase tracking-tight font-bold text-stone-400">
+          {alt}
+        </span>
+      </div>
+    );
+  }
+
   return (
     <Image
       src={url}
